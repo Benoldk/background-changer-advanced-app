@@ -1,23 +1,27 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import BackgroundChanger from './components/BackgroundChanger';
 
 function App() {
+  const [backgroundStyle, setBackgroundStyle] = useState('background-black');
+  const [backgoundCustomColorStyle, setCustomBackgroundColorStyle] = useState(null);
+
+  const setSystemBackgroundStyle = colStr => {
+    setCustomBackgroundColorStyle(null);
+    setBackgroundStyle(colStr);
+  }
+
+  const setCustomBackgroundCol = col => {
+    console.log(col);
+    const bkgStyle = {
+      backgroundColor: col
+    };
+    setCustomBackgroundColorStyle(bkgStyle);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={`App ${backgroundStyle}`} style={backgoundCustomColorStyle} >
+      <BackgroundChanger setBackgroundStyle={setSystemBackgroundStyle} setCustomBackgroundColor={setCustomBackgroundCol} />
     </div>
   );
 }
